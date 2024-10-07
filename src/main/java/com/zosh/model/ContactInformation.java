@@ -1,5 +1,7 @@
 package com.zosh.model;
 
+import lombok.Data;
+
 @Data
 public class ContactInformation {
 

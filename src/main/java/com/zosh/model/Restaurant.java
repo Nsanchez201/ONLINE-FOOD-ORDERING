@@ -3,14 +3,21 @@ package com.zosh.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+// @NoArgsConstructor
+@AllArgsConstructor 
 public class Restaurant {
 
-    @id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; 
 
@@ -46,23 +53,28 @@ public class Restaurant {
     private List<Food> foods = new ArrayList<>();
     
     //Default Constructor
-    public Restaurant () {
-        this.owner = "";
-        this.name = "";
-        this.description = "";
-        this.cuisineType = "";
-        this.address = "";
-        this.contactInformation = "";
-        this.openingHours = "";
-        this.reviews = new ArrayList<String>();
-        this.orders = new ArrayList<Order>();
-        this.numRating = 0;
-        this.images = "";
-        this.registrationDate = new Date();
-        this.open = false;
-        this.foods = new ArrayList<Food>();
+    public Restaurant() {
         //this("")
     }
 
+    public Restaurant(Long id, User owner, String name, String description, String cuisineType, Address address,
+            ContactInformation contactInformation, String openingHours, List<Order> orders, List<String> images,
+            LocalDateTime registrationDate, boolean open, List<Food> foods) {
+        this.id = id;
+        this.owner = owner;
+        this.name = name;
+        this.description = description;
+        this.cuisineType = cuisineType;
+        this.address = address;
+        this.contactInformation = contactInformation;
+        this.openingHours = openingHours;
+        this.orders = orders;
+        this.images = images;
+        this.registrationDate = registrationDate;
+        this.open = open;
+        this.foods = foods;
+    }
+
+    
 
 }
