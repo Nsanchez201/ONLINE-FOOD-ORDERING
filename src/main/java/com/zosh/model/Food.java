@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -40,7 +41,10 @@ public class Food {
     private boolean isVegetarian;
     private boolean isSeasonal;
 
+    @ManyToMany
     private List<IngredientsItem> ingredients = new ArrayList<>();
+
+    private Date crerationDate;
 
 
 
