@@ -18,7 +18,7 @@ import java.util.Collections;
 @Service
 public class JwtProvider {
 
-    private SecretKey key = Keys.hmacShakeyFor(JwtConstant.SECRET_KEY.getBytes());
+    private SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
     public String generatetoken(Authentication auth){
         Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
@@ -26,7 +26,7 @@ public class JwtProvider {
 
         String jwt = Jwts.builder().setIssuedAt(new Date())
                         .setExpiration((new Date(new Date().getTime()+86400000)))
-                        .claims("email", auth.getName())
+                        .claim("email", auth.getName())
                         .claim("authorities", roles)
                         .signWith(key)
                         .compact();
