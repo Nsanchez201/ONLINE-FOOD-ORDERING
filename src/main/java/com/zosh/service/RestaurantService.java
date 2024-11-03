@@ -17,7 +17,7 @@ public interface RestaurantService {
 
     public List<Restaurant> getAllRestaurants();
 
-    public List<Restaurant> searchRestaurant();
+    public List<Restaurant> searchRestaurant( String Key);
 
     public Restaurant findRestaurantById(Long Id) throws Exception;
 
