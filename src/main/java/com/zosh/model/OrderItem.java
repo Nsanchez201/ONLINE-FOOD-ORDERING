@@ -24,6 +24,8 @@ public class OrderItem {
 
     private Long totalPrice;
 
+
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private List<String> ingredients;
 
 

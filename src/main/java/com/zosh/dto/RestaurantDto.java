@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Data
 @Embeddable
 public class RestaurantDto {

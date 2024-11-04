@@ -29,6 +29,7 @@ public class CartItem {
     private int quantity;
 
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private List<String> ingredients;
 
    private Long totalPrice;
