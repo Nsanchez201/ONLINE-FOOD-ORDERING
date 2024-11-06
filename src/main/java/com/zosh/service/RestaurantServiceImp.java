@@ -30,7 +30,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
     @Override
     public Restaurant createRestaurant(CreateRestaurantRequest req, User user) {
-        Address address = addressRepository.save(req.);
+        Address address = addressRepository.save(req.getAddress());
 
         Restaurant restaurant = new Restaurant();
 
@@ -111,10 +111,22 @@ public class RestaurantServiceImp implements RestaurantService {
        dto.setTitle(restaurant.getName());
        dto.setId(restaurantId);
 
-       if(user.getFavorites().contains(dto)){
-           user.getFavorites().remove(dto);
+       boolean isFavorited = false;
+       List<RestaurantDto> favorites = user.getFavorites();
+       for(RestaurantDto favorite : favorites){
+           if(favorite.getId().equals(restaurantId)){
+               isFavorited = true;
+               break;
+           }
        }
-       else user.getFavorites().add(dto);
+
+       if(isFavorited){
+           favorites.removeIf(favorite -> favorite.getId().equals(restaurantId));
+       } else{
+           favorites.add(dto);
+       }
+
+
         userRepository.save(user);
        return dto;
 
