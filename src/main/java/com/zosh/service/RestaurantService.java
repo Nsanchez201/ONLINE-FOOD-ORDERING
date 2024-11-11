@@ -2,14 +2,14 @@ package com.zosh.service;
 
 import com.zosh.dto.RestaurantDto;
 import com.zosh.model.Restaurant;
-import com.zosh.model.User;
+import com.zosh.model.Users;
 import com.zosh.request.CreateRestaurantRequest;
 
 import java.util.List;
 
 public interface RestaurantService {
 
-    public Restaurant createRestaurant (CreateRestaurantRequest req, User user);
+    public Restaurant createRestaurant (CreateRestaurantRequest req, Users users);
 
     public Restaurant updateRestaurant(Long restaurantId, CreateRestaurantRequest updateRestaurant) throws Exception;
 
@@ -23,7 +23,7 @@ public interface RestaurantService {
 
     public Restaurant getRestaurantByUserId(Long UserId) throws Exception;
 
-    public RestaurantDto addToFavorites(Long restaurantId, User user) throws Exception;
+    public RestaurantDto addToFavorites(Long restaurantId, Users users) throws Exception;
 
     public Restaurant updateRestaurantStatus(Long Id) throws Exception;
 }

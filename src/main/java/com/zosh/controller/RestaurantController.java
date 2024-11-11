@@ -3,8 +3,7 @@ package com.zosh.controller;
 
 import com.zosh.dto.RestaurantDto;
 import com.zosh.model.Restaurant;
-import com.zosh.model.User;
-import com.zosh.request.CreateRestaurantRequest;
+import com.zosh.model.Users;
 import com.zosh.service.RestaurantService;
 import com.zosh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class RestaurantController {
             @RequestHeader("Authorization") String jwt,
             @RequestParam String keyword
     ) throws Exception {
-        User user = userService.findUserJwtToken(jwt);
+        Users users = userService.findUserJwtToken(jwt);
         List<Restaurant> restaurant = restaurantService.searchRestaurant(keyword);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
@@ -43,7 +42,7 @@ public class RestaurantController {
             @RequestHeader("Authorization") String jwt
 
     ) throws Exception {
-        User user = userService.findUserJwtToken(jwt);
+        Users users = userService.findUserJwtToken(jwt);
         List<Restaurant> restaurant = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
@@ -55,7 +54,7 @@ public class RestaurantController {
             @PathVariable Long id
 
     ) throws Exception {
-        User user = userService.findUserJwtToken(jwt);
+        Users users = userService.findUserJwtToken(jwt);
         Restaurant restaurant = restaurantService.findRestaurantById(id);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
@@ -67,8 +66,8 @@ public class RestaurantController {
             @PathVariable Long id
 
     ) throws Exception {
-        User user = userService.findUserJwtToken(jwt);
-        RestaurantDto restaurant = restaurantService.addToFavorites(id, user);
+        Users users = userService.findUserJwtToken(jwt);
+        RestaurantDto restaurant = restaurantService.addToFavorites(id, users);
 
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }

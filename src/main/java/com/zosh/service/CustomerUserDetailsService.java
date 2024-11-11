@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.zosh.model.USER_ROLE;
-import com.zosh.model.User;
+import com.zosh.model.Users;
 
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {
@@ -21,18 +21,18 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        User user = UserRepository.findByEmail(username);
-        if(user == null){
-            throw new UsernameNotFoundException("user not founhd with email" + username);
+        Users users = UserRepository.findByEmail(username);
+        if(users == null){
+            throw new UsernameNotFoundException("users not founhd with email" + username);
         }
 
-        USER_ROLE role = user.getRole();
+        USER_ROLE role = users.getRole();
         
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         authorities.add(new SimpleGrantedAuthority(role.toString()));
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(users.getEmail(), users.getPassword(),authorities);
 
     }
 

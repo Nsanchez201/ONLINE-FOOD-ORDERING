@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zosh.config.JwtProvider;
 import com.zosh.model.Cart;
 import com.zosh.model.USER_ROLE;
-import com.zosh.model.User;
+import com.zosh.model.Users;
 import com.zosh.repository.CartRepository;
 import com.zosh.repository.UserRepository;
 import com.zosh.request.LoginRequest;
@@ -46,26 +46,26 @@ public class AuthController {
     private CartRepository cartRepository;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception {
+    public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Users users) throws Exception {
         
-        User isEmailExist = userRepository.findByEmail(user.getEmail());
+        Users isEmailExist = userRepository.findByEmail(users.getEmail());
         if(isEmailExist!= null){
             throw new Exception("Email is already used with another account");
         }
 
-        User createdUser = new User();
-        createdUser.setEmail(user.getEmail());
-        createdUser.setFullName(user.getFullName());
-        createdUser.setRole(user.getRole());
-        createdUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        Users createdUsers = new Users();
+        createdUsers.setEmail(users.getEmail());
+        createdUsers.setFullName(users.getFullName());
+        createdUsers.setRole(users.getRole());
+        createdUsers.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        User savedUser = userRepository.save(createdUser);
+        Users savedUsers = userRepository.save(createdUsers);
 
         Cart cart = new Cart();
-        cart.setCustomer(savedUser);
+        cart.setCustomer(savedUsers);
         cartRepository.save(cart);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(users.getEmail(), users.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generatetoken(authentication);
@@ -74,7 +74,7 @@ public class AuthController {
 
         authResponse.setJwt(jwt);
         authResponse.setMessage("Register success");
-        authResponse.setRole(savedUser.getRole());
+        authResponse.setRole(savedUsers.getRole());
 
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }

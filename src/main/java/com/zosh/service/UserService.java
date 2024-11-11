@@ -1,12 +1,12 @@
 package com.zosh.service;
 
-import com.zosh.model.User;
+import com.zosh.model.Users;
 
 public interface UserService {
 
-    public User findUserJwtToken(String jwt) throws Exception;
+    public Users findUserJwtToken(String jwt) throws Exception;
 
-    public User findUserByEmail(String email) throws Exception;
+    public Users findUserByEmail(String email) throws Exception;
 
 
 }

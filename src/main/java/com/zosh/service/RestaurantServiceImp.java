@@ -3,7 +3,7 @@ package com.zosh.service;
 import com.zosh.dto.RestaurantDto;
 import com.zosh.model.Address;
 import com.zosh.model.Restaurant;
-import com.zosh.model.User;
+import com.zosh.model.Users;
 import com.zosh.repository.AddressRepository;
 import com.zosh.repository.RestaurantRepository;
 import com.zosh.repository.UserRepository;
@@ -29,7 +29,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
 
     @Override
-    public Restaurant createRestaurant(CreateRestaurantRequest req, User user) {
+    public Restaurant createRestaurant(CreateRestaurantRequest req, Users users) {
         Address address = addressRepository.save(req.getAddress());
 
         Restaurant restaurant = new Restaurant();
@@ -42,7 +42,7 @@ public class RestaurantServiceImp implements RestaurantService {
         restaurant.setName(req.getName());
         restaurant.setOpeningHours(req.getOpeningHours());
         restaurant.setRegistrationDate(LocalDateTime.now());
-        restaurant.setOwner(user);
+        restaurant.setOwner(users);
         return restaurantRepository.save(restaurant);
     }
 
@@ -101,7 +101,7 @@ public class RestaurantServiceImp implements RestaurantService {
     }
 
     @Override
-    public RestaurantDto addToFavorites(Long restaurantId, User user) throws Exception {
+    public RestaurantDto addToFavorites(Long restaurantId, Users users) throws Exception {
        Restaurant restaurant = findRestaurantById(restaurantId);
 
        RestaurantDto dto = new RestaurantDto();
@@ -112,7 +112,7 @@ public class RestaurantServiceImp implements RestaurantService {
        dto.setId(restaurantId);
 
        boolean isFavorited = false;
-       List<RestaurantDto> favorites = user.getFavorites();
+       List<RestaurantDto> favorites = users.getFavorites();
        for(RestaurantDto favorite : favorites){
            if(favorite.getId().equals(restaurantId)){
                isFavorited = true;
@@ -127,7 +127,7 @@ public class RestaurantServiceImp implements RestaurantService {
        }
 
 
-        userRepository.save(user);
+        userRepository.save(users);
        return dto;
 
     }
@@ -135,7 +135,7 @@ public class RestaurantServiceImp implements RestaurantService {
     @Override
     public Restaurant updateRestaurantStatus(Long Id) throws Exception {
        Restaurant restaurant = findRestaurantById(Id);
-       restaurant.setOpen(!restaurant.isOpen());
+       restaurant.setOpens(!restaurant.isOpens());
 
         return restaurantRepository.save(restaurant);
     }

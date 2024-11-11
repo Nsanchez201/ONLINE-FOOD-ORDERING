@@ -32,6 +32,7 @@ public class CartItem {
     @SuppressWarnings("JpaAttributeTypeInspection")
     private List<String> ingredients;
 
-   private Long totalPrice;
+    @Column(name = "totalPrice")
+    private Long totalPrice;
 
 }

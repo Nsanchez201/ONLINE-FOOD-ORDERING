@@ -1,7 +1,7 @@
 package com.zosh.controller;
 
 
-import com.zosh.model.User;
+import com.zosh.model.Users;
 import com.zosh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/profile")
-    public ResponseEntity<User> findUserByJwtToken(@RequestHeader("Authorization") String jwt) throws Exception {
-        User user= userService.findUserJwtToken(jwt);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Users> findUserByJwtToken(@RequestHeader("Authorization") String jwt) throws Exception {
+        Users users = userService.findUserJwtToken(jwt);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

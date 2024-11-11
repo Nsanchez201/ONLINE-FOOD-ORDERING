@@ -22,7 +22,7 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    private User customer;
+    private Users customer;
 
     @JsonIgnore
     @ManyToOne
@@ -44,7 +44,7 @@ public class Order {
 
     private int totalItem;
 
-    private int totalPrice;
+    private Long totalPrice;
 
 
 

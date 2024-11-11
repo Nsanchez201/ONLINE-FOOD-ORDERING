@@ -8,7 +8,6 @@ import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,7 +21,8 @@ public class Restaurant {
     private Long id;
 
     @OneToOne
-    private User Owner;
+    @JoinColumn(name = "owner_id") // Specify the foreign key column
+    private Users owner;
 
     private String name;
     private String description;
@@ -46,7 +46,7 @@ public class Restaurant {
 
     private LocalDateTime registrationDate;
 
-    private boolean open;
+    private boolean opens;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
